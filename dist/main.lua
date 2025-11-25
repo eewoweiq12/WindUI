@@ -8340,7 +8340,48 @@ if al.Icon then
 al:SetIcon(al.Icon)
 end
 
-local ao=ae("TextLabel",{
+local descText = ak.Desc or ak.Description
+local titleContainer
+if descText and descText ~= "" then
+titleContainer = ae("Frame",{
+BackgroundTransparency=1,
+AutomaticSize="Y",
+Size=UDim2.new(1, am and -(al.IconSize+8) or 0, 0, 0),
+},{
+ae("TextLabel",{
+BackgroundTransparency=1,
+TextXAlignment=al.TextXAlignment,
+AutomaticSize="Y",
+TextSize=al.TextSize,
+TextTransparency=0.05,
+ThemeTag={
+TextColor3="Text",
+},
+FontFace=Font.new(aa.Font,al.FontWeight),
+Text=al.Title,
+Size=UDim2.new(1,0,0,0),
+TextWrapped=true,
+}),
+ae("TextLabel", {
+BackgroundTransparency = 1,
+TextXAlignment = al.TextXAlignment or "Left",
+AutomaticSize = "Y",
+TextSize = 13,
+ThemeTag = { TextColor3 = "Text" },
+TextTransparency = 0.55,
+FontFace = Font.new(aa.Font, Enum.FontWeight.Medium),
+Text = descText,
+Size = UDim2.new(1, 0, 0, 0),
+TextWrapped = true,
+LayoutOrder = 1,
+}),
+ae("UIListLayout",{
+Padding=UDim.new(0,3),
+FillDirection="Vertical",
+}),
+})
+else
+titleContainer = ae("TextLabel",{
 BackgroundTransparency=1,
 TextXAlignment=al.TextXAlignment,
 AutomaticSize="Y",
@@ -8350,35 +8391,12 @@ ThemeTag={
 TextColor3="Text",
 },
 FontFace=Font.new(aa.Font,al.FontWeight),
-
-
 Text=al.Title,
-Size=UDim2.new(
-1,
-0,
-0,
-0
-),
+Size=UDim2.new(1,0,0,0),
 TextWrapped=true,
 })
-
-local descText = ak.Desc or ak.Description
-local ap_desc
-if descText and descText ~= "" then
-    ap_desc = ae("TextLabel", {
-        BackgroundTransparency = 1,
-        TextXAlignment = al.TextXAlignment or "Left",
-        AutomaticSize = "Y",
-        TextSize = 15,
-        ThemeTag = { TextColor3 = "Text" },
-        TextTransparency = 0.3,
-        FontFace = Font.new(aa.Font, Enum.FontWeight.Medium),
-        Text = descText,
-        Size = UDim2.new(1, 0, 0, 0),
-        TextWrapped = true,
-        LayoutOrder = 101,
-    })
 end
+local ao = titleContainer
 
 
 local function UpdateTitleSize()
@@ -8393,13 +8411,14 @@ ao.Size=UDim2.new(1,ap,0,0)
 end
 
 
+local hasDesc = descText and descText ~= ""
 local ap=aa.NewRoundFrame(ak.Window.ElementConfig.UICorner,"Squircle",{
 Size=UDim2.new(1,0,0,0),
 BackgroundTransparency=1,
 Parent=ak.Parent,
 ClipsDescendants=true,
 AutomaticSize="Y",
-ImageTransparency=al.Box and.93 or 1,
+ImageTransparency=(al.Box or hasDesc) and.93 or 1,
 ThemeTag={
 ImageColor3="Text",
 },
@@ -8411,13 +8430,14 @@ AutomaticSize=Expandable and nil or"Y",
 Text="",
 Name="Top",
 },{
-al.Box and ae("UIPadding",{
+(al.Box or hasDesc) and ae("UIPadding",{
 PaddingLeft=UDim.new(0,ak.Window.ElementConfig.UIPadding),
 PaddingRight=UDim.new(0,ak.Window.ElementConfig.UIPadding),
+PaddingTop=hasDesc and UDim.new(0,10) or nil,
+PaddingBottom=hasDesc and UDim.new(0,10) or nil,
 })or nil,
 am,
 ao,
-ap_desc,                    
 ae("UIListLayout",{
 Padding=UDim.new(0,8),
 FillDirection="Horizontal",
