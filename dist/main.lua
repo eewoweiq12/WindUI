@@ -8362,6 +8362,24 @@ Size=UDim2.new(
 TextWrapped=true,
 })
 
+local descText = ak.Desc or ak.Description
+local ap_desc
+if descText and descText ~= "" then
+    ap_desc = ae("TextLabel", {
+        BackgroundTransparency = 1,
+        TextXAlignment = al.TextXAlignment or "Left",
+        AutomaticSize = "Y",
+        TextSize = 15,
+        ThemeTag = { TextColor3 = "Text" },
+        TextTransparency = 0.3,
+        FontFace = Font.new(aa.Font, Enum.FontWeight.Medium),
+        Text = descText,
+        Size = UDim2.new(1, 0, 0, 0),
+        TextWrapped = true,
+        LayoutOrder = 101,
+    })
+end
+
 
 local function UpdateTitleSize()
 local ap=0
