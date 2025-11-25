@@ -9363,6 +9363,7 @@ local aj=a.load'U'
 function aa.New(ak,al,am,an,ao)
 local ap={
 Title=ak.Title or"Section",
+Desc=ak.Desc,
 Icon=ak.Icon,
 IconThemed=ak.IconThemed,
 Opened=ak.Opened or false,
@@ -9407,6 +9408,49 @@ ImageTransparency=.7,
 })
 })
 
+local at
+if ap.Desc then
+at=af("Frame",{
+Size=UDim2.new(1,aq and(-ap.IconSize-10)*2 or(-ap.IconSize-10),0,0),
+AutomaticSize="Y",
+BackgroundTransparency=1,
+},{
+af("TextLabel",{
+Text=ap.Title,
+TextXAlignment="Left",
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+ThemeTag={
+TextColor3="Text",
+},
+FontFace=Font.new(ae.Font,Enum.FontWeight.SemiBold),
+TextSize=14,
+BackgroundTransparency=1,
+TextTransparency=.2,
+TextWrapped=true
+}),
+af("TextLabel",{
+Text=ap.Desc,
+TextXAlignment="Left",
+Size=UDim2.new(1,0,0,0),
+AutomaticSize="Y",
+ThemeTag={
+TextColor3="Text",
+},
+FontFace=Font.new(ae.Font,Enum.FontWeight.Medium),
+TextSize=12,
+BackgroundTransparency=1,
+TextTransparency=.6,
+TextWrapped=true,
+LayoutOrder=1
+}),
+af("UIListLayout",{
+FillDirection="Vertical",
+Padding=UDim.new(0,2)
+})
+})
+end
+
 local as=af("Frame",{
 Size=UDim2.new(1,0,0,ap.HeaderSize),
 BackgroundTransparency=1,
@@ -9419,7 +9463,7 @@ BackgroundTransparency=1,
 Text="",
 },{
 aq,
-af("TextLabel",{
+at or af("TextLabel",{
 Text=ap.Title,
 TextXAlignment="Left",
 Size=UDim2.new(
@@ -9440,7 +9484,6 @@ TextTransparency=.7,
 
 TextWrapped=true
 }),
-ap_desc,
 af("UIListLayout",{
 FillDirection="Horizontal",
 VerticalAlignment="Center",
